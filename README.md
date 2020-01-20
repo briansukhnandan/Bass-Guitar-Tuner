@@ -6,3 +6,5 @@ Navigate to Bass-Guitar-Tuner/src/ and execute 'python3.6 TunerGUI.py'
 
 Dependencies: tkinter, playsound, Pillow
 
+![gui](ExampleOfUsage.png)
+
