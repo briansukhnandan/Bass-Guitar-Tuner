@@ -1,26 +1,25 @@
 import tkinter as tk
 import playsound
-from tkinter import Button, Frame, BOTTOM, RIGHT, TOP
+from tkinter import *
 from PIL import Image, ImageTk
 
 # Globals
 WIDTH = 394
 HEIGHT = 525
-FILENAME = 'bass guitar.PNG'
+FILENAME = 'bass_guitar.PNG'
 
 # Change these depending on system location.
-Efile = "C:\\Users\\dbz0w\\PycharmProjects\\Bass-Tuner\\Samples\\E.wav"
-Afile = "C:\\Users\\dbz0w\\PycharmProjects\\Bass-Tuner\\Samples\\A.wav"
-Dfile = "C:\\Users\\dbz0w\\PycharmProjects\\Bass-Tuner\\Samples\\D.wav"
-Gfile = "C:\\Users\\dbz0w\\PycharmProjects\\Bass-Tuner\\Samples\\G.wav"
+Efile = "../Samples/E.wav"
+Afile = "../Samples/A.wav"
+Dfile = "../Samples/D.wav"
+Gfile = "../Samples/G.wav"
 
-E = 'E'
-A = 'A'
-D = 'D'
-G = 'G'
+A_string = 'A'
+D_string = 'D'
+G_string = 'G'
 
 # Open the file and resize
-bass_guitar_image = Image.open("G:\\Program Files\\Git\\bass-guitar-tuner\\images\\bass guitar.PNG")
+bass_guitar_image = Image.open("../images/bass_guitar.PNG")
 bass_guitar_image = bass_guitar_image.resize((HEIGHT, WIDTH), Image.ANTIALIAS)
 
 # TODO: Import WAV files
@@ -46,27 +45,18 @@ def playG():
     print("Played a G")
 
 
-"""
-def create_configure_window():
-
-    print("Opened Second window")
-
-    new_window = tk.Toplevel()
-    new_window.title("String Menu")
-    label = tk.Label(new_window, text="Configure")
-    label.pack()
-
-    buttonDADG = Button(new_window, text="Set configuration to Drop D (D A D G).", command=set_drop_D)
-    buttonDADG.pack()
-"""
+def updateDropD(string):
+    string.set("D")
+    print("Updated to Drop D")
 
 
 class GUI:
-
     root = tk.Tk()
     root.title("Bass Guitar Tuner")
     canvas = tk.Canvas(root, width=500, height=400)
     canvas.pack()
+
+    E_string = tk.StringVar()
 
     bass_guitar = ImageTk.PhotoImage(bass_guitar_image)
     canvas.create_image(263, 202, image=bass_guitar)
@@ -74,16 +64,27 @@ class GUI:
     topFrame = Frame(root)
     topFrame.pack(side=TOP)
 
+    menu = Menu(root)
+    root.config(menu=menu)
+    filemenu = Menu(menu)
+    menu.add_cascade(label='Change Tuning', menu=filemenu)
+    filemenu.add_command(label='Drop D', command=updateDropD(E_string))
+    filemenu.add_separator()
+    filemenu.add_command(label='Exit', command=root.quit)
+
+
     bottomFrame = Frame(root)
     bottomFrame.pack(side=BOTTOM)
 
     rightFrame = Frame(root)
     rightFrame.pack(side=RIGHT)
 
-    buttonE = Button(bottomFrame, text=E, command=playE, height = 5, width = 5)
-    buttonA = Button(bottomFrame, text=A, command=playA, height = 5, width = 5)
-    buttonD = Button(bottomFrame, text=D, command=playD, height = 5, width = 5)
-    buttonG = Button(bottomFrame, text=G, command=playG, height = 5, width = 5)
+    buttonE = Button(bottomFrame, textvariable=E_string, command=playE, height = 5, width = 5)
+    E_string.set("Test")
+
+    buttonA = Button(bottomFrame, text=A_string, command=playA, height = 5, width = 5)
+    buttonD = Button(bottomFrame, text=D_string, command=playD, height = 5, width = 5)
+    buttonG = Button(bottomFrame, text=G_string, command=playG, height = 5, width = 5)
 
     buttonE.grid(column=0, row=1)
     buttonA.grid(column=1, row=1)
@@ -92,4 +93,3 @@ class GUI:
 
     root.configure(background='black')
     canvas.configure(background='black')
-
