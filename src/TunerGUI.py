@@ -80,7 +80,7 @@ class GUI:
     rightFrame.pack(side=RIGHT)
 
     buttonE = Button(bottomFrame, textvariable=E_string, command=playE, height = 5, width = 5)
-    E_string.set("Test")
+    E_string.set("E")
 
     buttonA = Button(bottomFrame, text=A_string, command=playA, height = 5, width = 5)
     buttonD = Button(bottomFrame, text=D_string, command=playD, height = 5, width = 5)
